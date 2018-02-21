@@ -13,7 +13,12 @@ const Header = () => (
       </Navbar.Header>
       <Nav style={{ textAlign: 'left' }}>
         <LinkContainer activeClassName="active-nav" to="/test">
-          <NavItem exact>Test</NavItem>
+          <NavItem>Test</NavItem>
+        </LinkContainer>
+      </Nav>
+      <Nav style={{ textAlign: 'left' }}>
+        <LinkContainer activeClassName="active-nav" to="/departments">
+          <NavItem>Departments</NavItem>
         </LinkContainer>
       </Nav>
     </div>

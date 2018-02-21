@@ -17,6 +17,8 @@ const AppRoutes = () => (
       >
         <Route exact path="/" component={RouteComponents.Home} />
         <Route path="/test" component={Test} />
+        <Route exact path="/departments" component={RouteComponents.DepartmentList} />
+        <Route path="/departments/:id" component={RouteComponents.DepartmentDetails} />
       </div>
     </div>
   </Router>
