@@ -6,7 +6,7 @@ import AppRoutes from './routing/Routes';
 const App = () => (
   <div className="App">
     <Header />
-    <AppRoutes />
+    <AppRoutes className="my-3" />
   </div>
 );
 
