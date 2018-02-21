@@ -9,9 +9,12 @@ const Test = () => (
 
 const AppRoutes = () => (
   <Router>
-    <div className="container-fluid my-3">
+    <div className="container-fluid d-flex flex-column" style={{ height: '100%' }} >
       <Header />
-      <div className="container my-3">
+      <div
+        className="container my-0  d-flex flex-column justify-content-center"
+        style={{ flexGrow: 1 }}
+      >
         <Route exact path="/" component={RouteComponents.Home} />
         <Route path="/test" component={Test} />
       </div>
