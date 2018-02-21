@@ -1,5 +1,6 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import Department from '../dept-item/Department';
 import { getDepartments } from '../departmets-service';
 
@@ -14,18 +15,19 @@ class DepartmentList extends React.Component {
   componentDidMount() {
     const deptsPromise = getDepartments();
     deptsPromise.then((depts) => {
-      /* eslint-disable no-console */
-      console.log('got depts', depts);
       this.setState({
         depts,
       });
     });
   }
 
+  departmentClickHandler = (event) => {
+    this.props.history.push(`departments/${event.currentTarget.dataset.deptId}`);
+  }
+
   renderDeptList() {
-    console.log('state', this.state);
     return this.state.depts.map(dept => (
-      <ListGroupItem key={dept.id}>
+      <ListGroupItem data-dept-id={dept.id} key={dept.id} onClick={this.departmentClickHandler}>
         <Department department={{ ...dept }} />
       </ListGroupItem>
     ));
@@ -39,5 +41,11 @@ class DepartmentList extends React.Component {
     );
   }
 }
+
+DepartmentList.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default DepartmentList;
