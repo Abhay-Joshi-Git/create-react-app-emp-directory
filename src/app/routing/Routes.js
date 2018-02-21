@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import RouteComponents from './routeComponents';
-import Header from '../Header/Header';
+import Header from '../header/Header';
 
 const Test = () => (
   <div>test path</div>
