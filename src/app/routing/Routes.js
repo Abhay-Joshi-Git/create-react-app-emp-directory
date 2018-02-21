@@ -12,7 +12,7 @@ const AppRoutes = () => (
     <div className="container-fluid d-flex flex-column" style={{ height: '100%' }} >
       <Header />
       <div
-        className="container my-0  d-flex flex-column justify-content-center"
+        className="container my-0  d-flex flex-column"
         style={{ flexGrow: 1 }}
       >
         <Route exact path="/" component={RouteComponents.Home} />

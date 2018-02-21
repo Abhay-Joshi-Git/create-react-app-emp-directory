@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Well, Label } from 'react-bootstrap';
 import { getDepartment } from '../departmets-service';
+import EmployeeList from '../../employees/emp-list/EmployeeList';
 
 class DepartmentDetails extends React.Component {
   constructor() {
     super();
     this.state = {
-      department: {},
+      department: null,
     };
   }
 
@@ -24,10 +25,13 @@ class DepartmentDetails extends React.Component {
   renderDepartmentDetails() {
     return this.state.department ?
       (
-        <Well style={{ textAlign: 'left' }}>
-          <p>Department Id: <Label>{this.state.department.id}</Label></p>
-          <p>Department Name: <Label>{this.state.department.name}</Label></p>
-        </Well>
+        <div>
+          <Well style={{ textAlign: 'left' }}>
+            <p>Department Id: <Label>{this.state.department.id}</Label></p>
+            <p>Department Name: <Label>{this.state.department.name}</Label></p>
+          </Well>
+          <EmployeeList department={{ ...this.state.department }} />
+        </div>
       ) :
       null;
   }
