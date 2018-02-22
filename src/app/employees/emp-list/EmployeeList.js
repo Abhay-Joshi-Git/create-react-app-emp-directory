@@ -1,21 +1,24 @@
 import React from 'react';
-import { ListGroup, ListGroupItem, Well, Label } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Well, Label, Modal, Button } from 'react-bootstrap';
+import find from 'lodash/find';
 import { getEmployees, getEmployeeByDeptId } from '../employee-service';
+import { getDepartment } from '../../departments/departmets-service';
 import DepartmentType from '../../departments/department.type';
+import EmployeeDetails from './employee-details.js';
 
 class EmployeeList extends React.Component {
   constructor(props) {
     super();
     this.state = {
       employees: [],
+      showEmpDetails: false,
+      selectedEmp: null,
     };
     /* eslint-disable no-console */
-    console.log('in constructor', props);
     this.getEmployees(props.department);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps);
     this.getEmployees(nextProps.department);
   }
 
@@ -27,20 +30,39 @@ class EmployeeList extends React.Component {
       empPromise = getEmployees();
     }
     empPromise.then((employees) => {
-      console.log('employees', employees);
       this.setState({
         employees,
       });
     });
   }
 
-  empClickHandler = () => {
+  empClickHandler = (event) => {
+    const emp = find(this.state.employees, item => item.id === +event.currentTarget.dataset.empId);
+    if (emp) {
+      getDepartment(emp.deptId).then((dept) => {
+        const selectedEmp = {
+          ...emp,
+          department: dept ? dept.name : '',
+        };
+        console.log('click handler', emp, dept, selectedEmp);
+        this.setState({
+          showEmpDetails: true,
+          selectedEmp,
+        });
+      });
+    }
+  }
+
+  handleClose = () => {
+    this.setState({
+      showEmpDetails: false,
+    });
   }
 
   renderEmpList() {
     return this.state.employees ?
       this.state.employees.map(emp => (
-        <ListGroupItem data-dept-id={emp.id} key={emp.id} onClick={this.empClickHandler}>
+        <ListGroupItem data-emp-id={emp.id} key={emp.id} onClick={this.empClickHandler}>
           <Well>
             <p>Employee Id: <Label>{emp.id}</Label></p>
             <p>Employee Name: <Label>{emp.name}</Label></p>
@@ -50,12 +72,25 @@ class EmployeeList extends React.Component {
       null;
   }
 
+  renderEmpDetails() {
+    return (
+      this.state.showEmpDetails ?
+        <Modal show={this.state.showEmpDetails} onHide={this.handleClose}>
+          <Modal.Body>
+            <EmployeeDetails employee={this.state.selectedEmp} />
+          </Modal.Body>
+        </Modal> :
+        null
+    );
+  }
+
   render() {
     /* eslint-disable no-console */
     console.log('rendering emp', this.state.employees);
     return (
       <ListGroup style={{ width: 300 }}>
         {this.renderEmpList()}
+        {this.renderEmpDetails()}
       </ListGroup>
     );
   }
