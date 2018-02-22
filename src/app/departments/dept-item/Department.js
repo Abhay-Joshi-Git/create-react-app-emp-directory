@@ -3,7 +3,7 @@ import { Well, Label } from 'react-bootstrap';
 import DepartmentType from '../department.type';
 
 const Department = props => (
-  <Well>
+  <Well style={{ margin: '1rem 0px' }}>
     <p>Department Id: <Label>{props.department.id}</Label></p>
     <p>Department Name: <Label>{props.department.name}</Label></p>
   </Well>

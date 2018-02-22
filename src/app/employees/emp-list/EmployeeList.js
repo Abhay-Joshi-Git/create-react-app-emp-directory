@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem, Well, Label, Modal, Button } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Well, Label, Modal } from 'react-bootstrap';
 import find from 'lodash/find';
 import { getEmployees, getEmployeeByDeptId } from '../employee-service';
 import { getDepartment } from '../../departments/departmets-service';
@@ -62,7 +62,12 @@ class EmployeeList extends React.Component {
   renderEmpList() {
     return this.state.employees ?
       this.state.employees.map(emp => (
-        <ListGroupItem data-emp-id={emp.id} key={emp.id} onClick={this.empClickHandler}>
+        <ListGroupItem
+          data-emp-id={emp.id}
+          key={emp.id}
+          onClick={this.empClickHandler}
+          style={{ margin: '1rem 0px' }}
+        >
           <Well>
             <p>Employee Id: <Label>{emp.id}</Label></p>
             <p>Employee Name: <Label>{emp.name}</Label></p>
@@ -76,8 +81,11 @@ class EmployeeList extends React.Component {
     return (
       this.state.showEmpDetails ?
         <Modal show={this.state.showEmpDetails} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title className="float-left">Employee - {this.state.selectedEmp.id}</Modal.Title>
+          </Modal.Header>
           <Modal.Body>
-            <EmployeeDetails employee={this.state.selectedEmp} />
+            <EmployeeDetails employee={this.state.selectedEmp} showHeader={false} />
           </Modal.Body>
         </Modal> :
         null

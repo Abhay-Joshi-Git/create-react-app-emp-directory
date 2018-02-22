@@ -9,10 +9,13 @@ const Test = () => (
 
 const AppRoutes = () => (
   <Router>
-    <div className="container-fluid d-flex flex-column" style={{ height: '100%' }} >
+    <div
+      className="container-fluid"
+      style={{ height: '100%', padding: '5px 0px', display: 'flex', flexDirection: 'column' }}
+    >
       <Header />
       <div
-        className="container my-0  d-flex flex-column"
+        className="container"
         style={{ flexGrow: 1 }}
       >
         <Route exact path="/" component={RouteComponents.Home} />

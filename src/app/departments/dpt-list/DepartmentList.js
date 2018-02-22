@@ -27,7 +27,12 @@ class DepartmentList extends React.Component {
 
   renderDeptList() {
     return this.state.depts.map(dept => (
-      <ListGroupItem data-dept-id={dept.id} key={dept.id} onClick={this.departmentClickHandler}>
+      <ListGroupItem
+        data-dept-id={dept.id}
+        key={dept.id}
+        onClick={this.departmentClickHandler}
+        style={{ margin: '1rem 0px' }}
+      >
         <Department department={{ ...dept }} />
       </ListGroupItem>
     ));
